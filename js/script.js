@@ -1,6 +1,5 @@
 $().ready(function(){
 	displayMostPopularPics();
-	//hoverPic();
 	getInput();
 });
 
@@ -23,12 +22,26 @@ function displayMostPopularPics(){
 			var imgUrl = value.images.standard_resolution.url;
 			var instaPic = $('.template').clone().removeClass('template hidden')
 										.find('.pop-pic').attr('src', imgUrl).parent();
-			var user = value.user;
-			var userPic = user.profile_picture;
-			var userName = user.full_name;
+			var instaUser = value.user;
+			var userPic = instaUser.profile_picture;
+			var userName = instaUser.full_name;
+			var caption = "";
+			var pageLink = value.link;
 
-			instaPic.find('.user-pic img').attr('src', userPic);
-			instaPic.find('.pop-pic-user').attr('title', userName);
+			//populateModal(pageLink);
+
+			if(value.caption){
+				caption = value.caption.text;
+			}
+			// console.log(value);
+
+			instaPic.find('.pop-pic').attr({
+				'title' : caption
+			});
+			instaPic.find('.pop-pic-user').attr({
+				'title': userName,
+				'src' : userPic
+			});
 
 			$('.pic-container').append(instaPic);
 		});
@@ -37,11 +50,7 @@ function displayMostPopularPics(){
 	});
 }
 
-//To DO: Fix this. Background image is not being set.
-function hoverPic(userName){
-	$('document.body').on('mouseenter','.pic', function(){
-		$('html').css('background', 'url(' + $(this).find('img').attr('src')+ ')');
-	}).on('mouseover', '.pop-pic-user',function(){
-				$(this).attr('title', userName);
-		});
+
+function populateModal(pageLink){
+	$('.modal-content').load(pageLink);
 }

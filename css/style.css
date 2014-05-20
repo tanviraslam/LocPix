@@ -17,6 +17,7 @@
 .pic{
 	outline: 1px solid blue;
 	height: 30%;
+	padding: 0;
 }
 
 .pic img{

@@ -39,7 +39,16 @@
               <a class="navbar-brand" href="#">LocPix</a>
             </div>
           </div>
+        </div>  
+        
+        <div class="modal fade userprofile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              Test
+            </div>
+          </div>
         </div>
+
         <div class="container-fluid">
             <div class="row">
                 <form role="form" class="form-inline" onsubmit="return false;">
@@ -55,8 +64,8 @@
         </div>
         <div class="container-fluid">
             <div class="row pic-container">
-                <div class="pic col-md-3 hidden template">
-                   <img src="#" class="pop-pic">
+                <div class="pic col-md-3 hidden template" data-toggle="modal" data-target=".userprofile">
+                   <img src="#" class="pop-pic" data-toggle="tooltip" data-placement="top" title="">
                    <div class="user-pic">
                      <img src="#" class="pop-pic-user" data-toggle="tooltip" data-placement="top" title="">
                    </div> 
