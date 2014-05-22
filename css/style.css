@@ -10,21 +10,25 @@
 .pic-container{
 	width: 90%;
 	height: 50em;
-	
 	margin:0 auto;
 }
 
 .pic{
-	outline: 1px solid blue;
+	/*outline: 1px solid blue;*/
 	height: 30%;
-	padding: 0;
+	padding-top: 15px;	
+	padding-bottom: 15px;
 }
 
 .pic img{
 	width: 100%;
 	height: 100%;
-	padding: 1em;`
+	/*padding: 1em;*/
 	z-index: -1;
+}
+
+.pic img:hover{
+	cursor: pointer;
 }
 
 .user-pic{
@@ -41,4 +45,9 @@
 	width: 100%;
 	height: 100%;
 	padding: 0.2em;
+}
+
+.navbar-brand{
+	font-family: 'Pacifico', cursive;
+	font-size: 40px;
 }
