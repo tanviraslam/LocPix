@@ -17,9 +17,11 @@
                 padding-bottom: 20px;
             }
         </style>
+        <link href="img/favicon.ico" rel="icon" type="image/x-icon"/>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
         <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="css/style.css">
 
         <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
@@ -31,18 +33,30 @@
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
           <div class="container-fluid">
             <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-              </button>
+              </button> -->
               <a class="navbar-brand" href="#">LocPix</a>
+               <form role="form" class="form-inline navbar-form" onsubmit="return false;">
+                   <div class="form-group search">
+                      <button class="tag-btn btn btn-info">Search By Tag</button>
+                      <label for="search-tag" class="sr-only">Enter Tag</label>
+                      <input type="search" class="form-control hide" name="search-tag" id="search-tag" placeholder="Search By Tag">
+                      <label class="or-label">OR</label>
+                      <button class="btn btn-info loc-btn">Search By Location</button>
+                      <label for="search-loc" class="sr-only">Enter Location</label>
+                      <input type="search" class="form-control hide" name="search-loc" id="search-loc" placeholder="Search By Location">
+                      <input type="submit" class="btn btn-primary hide"></input>
+                   </div> 
+                </form>
             </div>
           </div>
         </div> <!-- Navbar -->
         
-        <div class="container-fluid">
+        <!-- <div class="container-fluid">
             <div class="row">
                 <form role="form" class="form-inline" onsubmit="return false;">
                    <div class="form-group search">
@@ -58,8 +72,8 @@
 
         <div class="container-fluid">
             <div class="row pic-container">
-                <div class="pic col-md-3 hidden template" data-toggle="modal" data-target=".userprofile">
-                   <img src="#" class="pop-pic" data-toggle="tooltip" data-placement="top" title="">
+                <div class="pic col-md-3 hidden template">
+                   <img src="#" class="pop-pic" data-toggle="tooltip" data-placement="top" title="" data-pagelink="#">
                    <div class="user-pic">
                      <img src="#" class="pop-pic-user" data-toggle="tooltip" data-placement="top" title="">
                    </div> 

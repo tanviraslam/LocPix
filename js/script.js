@@ -1,6 +1,30 @@
-$().ready(function(){
+$(document).ready(function(){
 	displayMostPopularPics();
+
+	//Make sure either tag search or input search is valid at a time. By default tag search
+	//enabled
+
+	$('.tag-btn').click(function(){
+		$(this).hide();
+		$('#search-tag').removeClass('hide').focus();
+		$('#search-loc').addClass('hide');
+		$('.loc-btn').show();
+		$('input[type="submit"]').removeClass('hide');
+	});
+
+	$('.loc-btn').click(function(){
+		$(this).hide();
+		$('#search-loc').removeClass('hide').focus();
+		$('#search-tag').addClass('hide');
+		$('.tag-btn').show();
+		$('input[type="submit"]').removeClass('hide');
+	});
+
 	getInput();
+	//goToProfile();
+	$(document.body).on('click', '.pic', function(){
+		window.open($(this).find('.pop-pic').data('pagelink'));
+	});
 });
 
 var instaloc = {};
@@ -11,27 +35,29 @@ function getInput(){
 		var searchLoc = $(this).find('input[name="search-loc"]').val();
 
 		//Geocoding. Wanted to do this as a separate function. But that was not working.
-		geoCode(searchLoc);
+		if(searchLoc) geoCode(searchLoc);
 		//console.log(latlong);
 		//Ajax for location tags
 		
 		
 		//Ajax for search tags
-		$.ajax({
-			url: 'https://api.instagram.com/v1/tags/search',
-			type: 'GET',
-			dataType: 'jsonp',
-		 	data: {
-		 		'q': searchTag,
-		 		'client_id' : '3c1e3c03496f41b49ff28840d7d8e3df'
-		 	}
-		})
-		.done(function(result) {
-			displayTaggedPics(result.data[0].name);
-		})
-		.fail(function() {
-			console.log(error);
-		});
+		if(searchTag){
+			$.ajax({
+				url: 'https://api.instagram.com/v1/tags/search',
+				type: 'GET',
+				dataType: 'jsonp',
+			 	data: {
+			 		'q': searchTag,
+			 		'client_id' : '3c1e3c03496f41b49ff28840d7d8e3df'
+			 	}
+			})
+			.done(function(result) {
+				displayTaggedPics(result.data[0].name);
+			})
+			.fail(function(error) {
+				console.log(error);
+			});
+		}
 	});
 }
 
@@ -40,7 +66,7 @@ function displayTaggedPics(searchTag){
 		url: 'https://api.instagram.com/v1/tags/' + searchTag + '/media/recent',
 		type: 'GET',
 		dataType: 'jsonp',
-		data: {'client_id' : '3c1e3c03496f41b49ff28840d7d8e3df'}
+		data: {'client_id' : '3c1e3c03496f41b49ff28840d7d8e3df', 'count' : 50}
 	})
 	.done(function(results) {
 		//first remove the existing images
@@ -54,9 +80,10 @@ function displayTaggedPics(searchTag){
 
 function displayMostPopularPics(){
 	$.ajax({
-		url: "https://api.instagram.com/v1/media/popular?client_id=3c1e3c03496f41b49ff28840d7d8e3df",
+		url: "https://api.instagram.com/v1/media/popular",
 		type: "GET",
 		dataType: "jsonp",
+		data: {'client_id' : '3c1e3c03496f41b49ff28840d7d8e3df', 'count' : 50}
 	}).done(function(results){
 		clearDisplay();
 		displayPicAjax(results);
@@ -66,9 +93,9 @@ function displayMostPopularPics(){
 }
 
 
-function goToProfile(pageLink){
+function goToProfile(){
 	$('.pic').click(function(){
-		window.open(pageLink);
+		window.open($(this).find('.pop-pic').data('link'));
 	});
 	
 }
@@ -76,7 +103,7 @@ function goToProfile(pageLink){
 
 function displayPicAjax(results){
 	var imgObj = results.data;
-
+		console.log(results);
 		$.each(imgObj, function(index, value){
 			var imgUrl = value.images.standard_resolution.url;
 			var instaPic = $('.template').clone().removeClass('template hidden')
@@ -86,8 +113,8 @@ function displayPicAjax(results){
 			var userName = instaUser.full_name;
 			var caption = "";
 			var pageLink = value.link;
-
-			goToProfile(pageLink);
+			instaPic.find('.pop-pic').data("pagelink",pageLink);
+			//goToProfile(pageLink);
 
 			if(value.caption){
 				caption = value.caption.text;
@@ -137,7 +164,9 @@ function geoCode(location){
 				.done(function(results) {
 					//results.data[].id gives you the location id which you will use to get the image
 					var imgObj = results.data;
-				
+					clearDisplay();
+					//console.log(imgObj);
+					var count = 0;
 					$.each(imgObj, function(index, val) {
 						 /* iterate through array or object */
 						 var locId = val.id;
@@ -149,37 +178,10 @@ function geoCode(location){
 						 		'client_id' : '3c1e3c03496f41b49ff28840d7d8e3df'
 						 	}
 						 })
-						 .done(function(result) {
-						 	if(result.data.length){
-						 		console.log(result.data);
+						 .done(function(results) {
+						 	if(results.data.length){
+						 		displayPicAjax(results);
 						 	}
-						 	//var imgObj = result.data[0];
-						 	//console.log(imgObj);
-						 // 	var imgUrl = imgObj.standard_resolution.url;
-						 // 	var instaPic = $('.template').clone().removeClass('template hidden')
-							// 			.find('.pop-pic').attr('src', imgUrl).parent();
-							// var instaUser = imgObj.user;
-							// var userPic = instaUser.profile_picture;
-							// var userName = instaUser.full_name;
-							// var caption = "";
-							// var pageLink = imgObj.link;
-
-							// goToProfile(pageLink);
-
-							// if(value.caption){
-							// 	caption = value.caption.text;
-							// }
-
-							// instaPic.find('.pop-pic').attr({
-							// 	'title' : caption
-							// });
-							// instaPic.find('.pop-pic-user').attr({
-							// 	'title': userName,
-							// 	'src' : userPic
-							// });
-
-							// $('.pic-container').append(instaPic);
-
 						 })
 						 .fail(function() {
 						 	console.log("error");

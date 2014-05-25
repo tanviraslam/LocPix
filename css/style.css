@@ -1,16 +1,16 @@
 .search{
 	position: relative;
 	display: inline-block;
-	width: 35%;
-	left: 32.5%;
-	margin-top: 1.5em;
-	margin-bottom: 1.5em !important;
+	width: 40%;
+	left: 20%;
+	margin-top: 1em;
 }
 
 .pic-container{
 	width: 90%;
 	height: 50em;
 	margin:0 auto;
+	margin-top: 30px;
 }
 
 .pic{
@@ -48,6 +48,38 @@
 }
 
 .navbar-brand{
-	font-family: 'Pacifico', cursive;
+	font-family: 'Audiowide', cursive;
 	font-size: 40px;
+	color: #fff !important;
+	line-height: 50px;
+}
+
+.navbar-inverse{
+	background: #6a9a1f;
+	height: 75px;
+	border-bottom: 0;
+	margin-bottom: 15px;
+}
+
+.navbar-form{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.navbar-header{
+	width: 100%;
+}
+
+.or-label{
+	font-family: 'Audiowide', cursive;
+	color: #fff;
+}
+
+
+.hide{
+	display: none;
+}
+
+.tag-btn, .loc-btn, #search-tag, #search-loc{
+	width: 40%;
 }
