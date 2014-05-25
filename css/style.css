@@ -83,3 +83,10 @@
 .tag-btn, .loc-btn, #search-tag, #search-loc{
 	width: 40%;
 }
+
+/*Media Queries*/
+@media (min-width: 768px){
+	.tag-btn, .loc-btn, #search-tag, #search-loc{
+		width: 30%;
+	}
+}
