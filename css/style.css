@@ -1,9 +1,9 @@
 .search{
 	position: relative;
-	display: inline-block;
 	width: 40%;
 	left: 20%;
 	margin-top: 1em;
+	overflow: hidden;
 }
 
 .pic-container{
@@ -82,4 +82,12 @@
 
 .tag-btn, .loc-btn, #search-tag, #search-loc{
 	width: 40%;
+}
+
+/*Media Queries*/
+/*Media Queries*/
+@media (min-width: 768px){
+	.tag-btn, .loc-btn, #search-tag, #search-loc{
+		width: 30%;
+	}
 }
